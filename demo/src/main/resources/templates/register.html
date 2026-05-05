@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration</title>
+    <link rel="stylesheet" href="/styles/css/style.css?v=23">
+    <link rel="stylesheet" type="text/css" href="/styles/css/daterangepicker.min.css?v=23">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8">
+</head>
+<body>
+
+<div id="fragment"></div>
+
+<header>
+    <img src="/styles/img/header1.svg" alt="" id="header_fragment">
+    <div class="header-body">
+        <div class="row">
+            <div class="page-name">
+                <div class="small"><a href="">აუქციონები.</a></div>
+                <div class="big"><a href="/register">რეგისტრაცია</a></div>
+            </div>
+
+            <div id="logo">
+                <!-- Takes you to login now -->
+                <a href="/login">
+                    <img src="/styles/img/logo.svg" alt="">
+                </a>
+            </div>
+            <!-- Removed the Auth button completely -->
+            <div class="nav"></div>
+        </div>
+    </div>
+</header>
+
+<main>
+
+    <div th:if="${error}" class="alert alert-danger" style="text-align: center" th:text="${error}">
+        შეცდომა
+    </div>
+
+    <div class="reg-header">
+        <div class="heading bold">რეგისტრაცია</div>
+    </div>
+
+    <form role="form" id="form" method="POST" action="/register" enctype="multipart/form-data">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+        <div class="reg-body-1">
+
+            <div class="text">
+                <div>მოგესალმებით!</div>
+                <div>გთხოვთ შეავსოთ რეგისტრაციის გვერდზე მოცემული ყველა სავალდებულო ველი.</div>
+            </div>
+
+            <div class="company row">
+                <div class="comp">
+                    <input required="required" type="text" placeholder="კომპანიის დასახელება*" name="companyName" >
+                    <span class="error ">მონაცემები არასწორია</span>
+                </div>
+
+                <div class="comp-type first">
+                    <div class="custom-select">
+                        <select name="companyType" id="form_select" size="1">
+                            <option value="შპს">შპს</option>
+                            <option value="სს">სს</option>
+                            <option value="ი/მ">ი/მ</option>
+                        </select>
+                    </div>
+                    <span class="error">მონაცემები არასწორია</span>
+                </div>
+
+                <div class="comp-type">
+                    <div class="custom-select">
+                        <select name="category" id="form_select" size="1">
+                            <optgroup label="Categories">
+                                <option value="GKPT, Cubicles">GKPT, Cubicles</option>
+                                <option value="Cables">Cables</option>
+                                <option value="Other">Other</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <span class="error">მონაცემები არასწორია</span>
+                </div>
+            </div>
+
+            <div class="personal-row row">
+                <div class="row">
+                    <input required="required" name="contactName" type="text" placeholder="საკონტაქტო პირის სახელი*">
+                    <span class="error">მონაცემები არასწორია</span>
+                </div>
+                <div class="row">
+                    <input required="required" name="contactSurname" type="text" placeholder="საკონტაქტო პირის გვარი*">
+                    <span class="error">მონაცემები არასწორია</span>
+                </div>
+                <div class="row">
+                    <input required="required" name="contactPosition" type="text" placeholder="პოზიცია*">
+                    <span class="error">მონაცემები არასწორია</span>
+                </div>
+                <div class="row">
+                    <input required="required" name="contactEmail" type="text" placeholder="საკონტაქტო ელ.ფოსტა*">
+                    <span class="error">მონაცემები არასწორია</span>
+                </div>
+                <div class="row">
+                    <input required="required" name="contactMobile" type="text" placeholder="საკონტაქტო პირის მობ. ნომერი*">
+                    <span class="error">მონაცემები არასწორია</span>
+                </div>
+                <div class="row">
+                    <input name="contactPhone" type="text" placeholder="ტელეფონი">
+                    <span class="error">მონაცემები არასწორია</span>
+                </div>
+            </div>
+
+            <div class="address-row row">
+                <div class="row">
+                    <input required="required" name="phisAddress" type="text" placeholder="ფაქტიური მისამართი*">
+                    <span class="error">მონაცემები არასწორია</span>
+                </div>
+                <div class="row">
+                    <input required="required" name="legalAddress" type="text" placeholder="იურიდიული მისამართი*">
+                    <span class="error">მონაცემები არასწორია</span>
+                </div>
+                <div class="row">
+                    <input required="required" minlength="9" maxlength="11" name="taxId" type="text" placeholder="საიდენთიფიკაციო ნომერი*">
+                    <span class="error">მონაცემები არასწორია</span>
+                </div>
+                <div class="row">
+                    <input name="webSite" type="text" placeholder="ვებ-გვერდის მისამართი">
+                    <span class="error">მონაცემები არასწორია</span>
+                </div>
+            </div>
+
+            <textarea style="width: 100%; resize: none;" name="businessDesc" rows="5" placeholder="კომპანიის საქმიანობის შესახებ და მოკლე აღწერა" ></textarea>
+
+            <div class="bank row">
+                <div class="row">
+                    <input required="required" name="bankCode1" type="text" placeholder="ბანკის კოდი*">
+                    <span class="error">მონაცემები არასწორია</span>
+                </div>
+
+                <div class="row">
+                    <input required="required" name="bankAccount1" type="text" placeholder="საბანკო ანგარიშის ნომერი*">
+                    <span class="error">მონაცემები არასწორია</span>
+                </div>
+
+                <div class="row">
+                    <div class="ch-text">ხართ თუ არა დღგ-ს გადამხდელი?</div>
+                    <div class="check-boxs">
+                        <!-- Removed 'active' and 'checked' -->
+                        <div class="box">
+                            <input name="vatPayer" value="on" type="radio" style="display: none;">
+                            <div class="check">
+                                <img src="/styles/img/check.svg" alt="">
+                            </div>
+                            <span>კი</span>
+                        </div>
+
+                        <div class="box">
+                            <input name="vatPayer" value="off" type="radio" style="display: none;">
+                            <div class="check">
+                                <img src="/styles/img/check.svg" alt="">
+                            </div>
+                            <span>არა</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reg-header">
+            <div class="heading bold">დოკუმენტაცია</div>
+        </div>
+
+        <div class="reg-body-1">
+            <div class="documents row">
+                <div class="row">
+                    <div class="input">
+                        <span data-text="რეესტრის ამონაწერის ატვირთვა">რეესტრის ამონაწერის ატვირთვა*</span>
+                        <img src="/styles/img/attachment.svg" class="file" alt="">
+                        <img src="/styles/img/delete.svg" class="delete" alt="">
+                    </div>
+                    <input required="required" type="file" name="regFile" class="file_input" id="reestr">
+                    <small class="hidden" id="reestr_alert">გთხოვთ ატვირთოთ რეესტრის ამონაწერი</small>
+                </div>
+                <div class="row">
+                    <div class="input">
+                        <span data-text="დღგ-ს ცნობის ატვირთვა">დღგ-ს ცნობის ატვირთვა*</span>
+                        <img src="/styles/img/attachment.svg" class="file" alt="">
+                        <img src="/styles/img/delete.svg" class="delete" alt="">
+                    </div>
+                    <input required="required" type="file" name="inputVat" class="file_input" id="dghg">
+                    <small class="hidden" id="dghg_alert">გთხოვთ ატვირთოთ დღგ-ს ცნობა</small>
+                </div>
+                <div class="row">
+                    <div class="input">
+                        <span data-text="დამატებითი ფაილის ატვირთვა">დამატებითი ფაილის ატვირთვა</span>
+                        <img src="/styles/img/attachment.svg" class="file" alt="">
+                        <img src="/styles/img/delete.svg" class="delete" alt="">
+                    </div>
+                    <input type="file" name="fileOther" class="file_input">
+                </div>
+            </div>
+
+            <div class="documents row add">
+                <div class="row">
+                    <div class="input">
+                        <span data-text="დამატებითი ფაილის ატვირთვა">დამატებითი ფაილის ატვირთვა</span>
+                        <img src="/styles/img/attachment.svg" class="file" alt="">
+                        <img src="/styles/img/delete.svg" class="delete" alt="">
+                    </div>
+                    <input type="file" name="otherFileFirst" class="file_input">
+                </div>
+                <div class="row">
+                    <div class="input">
+                        <span data-text="დამატებითი ფაილის ატვირთვა">დამატებითი ფაილის ატვირთვა</span>
+                        <img src="/styles/img/attachment.svg" class="file" alt="">
+                        <img src="/styles/img/delete.svg" class="delete" alt="">
+                    </div>
+                    <input type="file" name="otherFileSecond" class="file_input">
+                </div>
+                <div class="row">
+                    <div class="input">
+                        <span data-text="დამატებითი ფაილის ატვირთვა">დამატებითი ფაილის ატვირთვა</span>
+                        <img src="/styles/img/attachment.svg" class="file" alt="">
+                        <img src="/styles/img/delete.svg" class="delete" alt="">
+                    </div>
+                    <input type="file" name="otherFileThird" class="file_input">
+                </div>
+            </div>
+
+            <div class="add-button">
+                <span>ველის დამატება</span>
+                <img src="/styles/img/plus.svg" alt="">
+            </div>
+        </div>
+
+        <div class="reg-body-1 last">
+
+            <div id="cond-buttons">
+                <div class="button bold active" data-index="1">პირობები</div>
+                <div class="button bold" data-index="2">Conditions</div>
+            </div>
+
+            <div id="cond-body">
+                <div class="cond-text active" data-index="1">
+                    <p>თქვენ იმყოფებით ს.ს. „ენერგო-პრო ჯორჯიას“ ფასთა გამოკითხვის ვებ-გვერდზე.</p>
+                    <p>გარკვეული შესყიდვების დროს ამ გვერდის მეშვეობით ელექტრონულად ხორციელდება პოტენციური კონტრაქტორებისაგან კომერციული შემოთავაზებების მიღება.</p>
+                    <p>სისტემაში კომპანიები დაყოფილი არიან კატეგორიების მიხედვით. წინასწარ დარეგისტრირებული კომპანიების წარმომადგენლები ელექტრონული ფოსტისა და მოკლეტექსტური შეტყობინების მეშვეობით იღებენ მოწვევას შესაბამისი მომსახურების ან მასალების შესყიდვის ფასთა გამოკითხვაში მონაწილეობის მიღების შესახებ.</p>
+                    <p>ფასთა გამოკითხვა მოიცავს სამ ეტაპს:</p>
+                    <ol type="I">
+                        <li>ტექნიკური სახის საკითხების დაზუსტება;</li>
+                        <li>შემოთავაზების მიღება ვებ-გვერდის მეშვეობით;</li>
+                        <li>შემოთავაზების დაფიქსირება ინტერაქტიულ რეჟიმში (კომპანიები, რომლებიც მეორე ეტაპზე წარმოადგენენ ს.ს „ენერგო-პრო ჯორჯიასთვის“ ხელსაყრელ და მისაღებ შემოთავაზებას, დაიშვებიან ფასთა გამოკითხვის მესამე ეტაპზე და ექნებათ საშუალება ინტერაქტიულ რეჟიმში დააფიქსირონ შემოთავაზებები (აუქციონის სისტემით)).</li>
+                    </ol>
+                    <p>სურვილის შემთხვევაში კომპანიებს შეუძლიათ შეავსონ მოთხოვნა რეგისტრაციაზე.</p>
+                    <ul>
+                        <p>გთხოვთ გაითვალისწინოთ :</p>
+                        <li>ფასთა გამოკითხვის სისტემა არის ს.ს. „ენერგო-პრო ჯორჯიას“ შიდა ინსტრუმენტი;</li>
+                        <li>რეგისტრაციაზე მოთხოვნის შემდეგ, სისტემაში დამატების საკითხს გადაწყვეტს ს.ს. „ენერგო-პრო ჯორჯიას“ სათანადო სამსახური. რის შესახებაც მიიღებთ შესაბამის შეტყობინებას არაუგვიანეს 10 სამუშაო დღისა;</li>
+                        <li>ს.ს. „ენერგო-პრო ჯორჯია“ იტოვებს უფლებას ახსნა-განმარტების გარეშე უარყოს ახალი კომპანიებს რეგისტრაცია;</li>
+                        <li>ფასთა გამოკითხვაში მონაწილე კომპანიები მიიღებენ ინფორმაციას გამარჯვების ან წარუმეტებლობის შესახებ;</li>
+                        <li>დაბალი ფასი არ არის გამარჯვების უცილობელი პირობა. კომპანია იტოვებს უფლებას მიიღოს საბოლოო გადაწყვეტილება ყოველგვარი დამატებითი ახსნა-განმარტების გარეშე;</li>
+                        <li>ს.ს. „ენერგო-პრო ჯორჯია“ იტოვებს უფლებას ახსნა-განმარტების გარეშე გააუქმოს ფასთა გამოკითხვის შედეგები.</li>
+                        <li>
+                            შესაძლოა კომპანიამ ელექტრონულ ფასთა გამოკითხაში მონაწილეობისათვის მოითხოვოს წინადადების უზრუნველყოფის გარანტია, რომელიც არ იქნება კონტრაქტის სავარაუდო ღირებულების 5%-ზე მეტი.
+                            <ul style="margin-left: 20px; font-style: italic">
+                                <li>1. დამარცხების შემთხვევაში აღნიშნული თანხა 10 დღის განმავლობაში დაუბრუნდება პრეტენდენტს შესაბამის ანგარიშზე.</li>
+                                <li>2. გამარჯვების შემთხვევაში თანხა დაუბრუნდება პრეტენდენტს ხელშეკრულების გაფორმებიდან 10 დღეში.</li>
+                                <li>3. თუ გამარჯვებული პრეტენდენტი უარს განაცხადებს ხელშეკრულების დადებაზე პრეტენდენტს არ დაუბრუნდება საბანკო გარანტია და განხილული იქნება მისი არასაიმედო პარტნოირთა სიაში ჩარიცხვა.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    რეგისტრაციაზე მოთხოვნის გაგზავნა ავტომატურად ნიშნავს რომ თქვნ წაკითხული გაქვთ მოცემული განმარტებები და ეთანხმაებით მასში წარმოდგენილ პუნქტებს.
+                </div>
+
+                <div class="cond-text" data-index="2">
+                    <p>You are on the Price Quotation web-page of JSC ENERGO-PRO Georgia. Through this web-page collection of commercial offers from potential contractors are carried out electronically for certain purchases. Companies are sorted by categories in the system. Representatives of registered companies are invited via e-mail and SMS for participation in a price quotation of appropriate materials or service purchase.</p>
+                    <p>Price Quotation consists of three stages:</p>
+                    <ol type="I">
+                        <li>Clarification of technical questions;</li>
+                        <li>Collection of commercial proposals via web-page;</li>
+                        <li>Fix the offered price during interactive mode (Companies which submit favorable and acceptable commercial proposals for JSC ENERGO-PRO Georgia on the second stage are allowed to move on third stage where they are able to fix their offered price during interactive mode (according to the auction system).</li>
+                    </ol>
+                    <p>If desired a company can fill in the request for registration form.</p>
+                    <ul>
+                        <p>Please consider :</p>
+                        <li>The Price Quotation system is JSC ENERGO-PRO Georgia’s internal tool;</li>
+                        <li>Approval of registration after filling the request is executed by JSC ENERGO-PRO Georgia’s corresponding division. You will receive appropriate confirmation message no later than 10 working days.</li>
+                        <li>JSC ENERGO-PRO Georgia reserves the right to reject new company’s registration without any explanation;</li>
+                        <li>Participant companies will receive an information of their success or failure in the Price Quotation;</li>
+                        <li>Low price is not essential condition for winning the Price Quotation. JSC ENERGO-PRO Georgia reserves the right to make final decision without additional explanation.</li>
+                        <li>JSC ENERGO-PRO Georgia reserves the right to abolish Price Quotation results without any explanation.</li>
+                    </ul>
+                    Requesting the registration automatically means that you read and considered the terms and conditions of the definitions;
+                </div>
+            </div>
+        </div>
+
+        <div class="reg-cond-body">
+            <div class="reg-condition">
+                <span>გავეცანი და ვეთანხმები პირობებს</span>
+                <div class="check">
+                    <img src="/styles/img/check.svg" alt="">
+                </div>
+            </div>
+
+            <input required="required" type="submit" class="active" ID="registrationBtn" value="რეგისტრაცია">
+        </div>
+
+    </form>
+</main>
+
+<footer>
+    <div class="copyright bold">
+        © ენერგო-პრო საქართველო.
+    </div>
+    <div class="call"></div>
+    <img src="/styles/img/footer1.svg" alt="" id="footer_fragment">
+    <a href="/">
+        <img id="footer-logo" src="/styles/img/footer-logo.svg">
+    </a>
+</footer>
+
+<style>
+    .check-boxs *:not(input):not(.box){pointer-events: none;}
+    .hidden{ color: red; display: none; }
+    .alert{ padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; }
+    .alert-danger{ color: #a94442; background-color: #f2dede; border-color: #ebccd1; }
+</style>
+
+<!-- Scripts exactly as provided -->
+<script src="/styles/js/jquery.min.js?v=23"></script>
+<script src="/styles/js/bootstrap.min.js?v=23"></script>
+<script src="/styles/js/main.js?v=23"></script>
+
+<script>
+    function _checkBox(){
+        var $a = $('div.bank div.check-boxs div.box');
+        $a.on('click',function(e){
+            if(e.target.classList.contains('box')){
+                $a.removeClass('active');
+                $(this).find('input').prop('checked', true); // Modified slightly to set underlying input state correctly
+                $(this).addClass('active');
+            }
+        })
+    }
+
+    function checkValidity(e){
+        try {
+            if($(e).prop('validity').valid) {
+                $(e + "_alert").css("display", "none");
+            }else{
+                $(e + "_alert").css("display", "block");
+            }
+        } catch(e){}
+    }
+
+    _checkBox();
+
+    $("#registrationBtn").on('click', function(){
+        checkValidity("#reestr");
+        checkValidity("#dghg");
+    });
+</script>
+<script src="/scripts/myScripts/registration.js"></script>
+</body>
+</html>

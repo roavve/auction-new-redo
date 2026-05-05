@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.032 20.83">
+  <defs>
+    <style>
+      .cls-1, .cls-4 {
+        fill: none;
+      }
+
+      .cls-1 {
+        stroke: #00c07e;
+      }
+
+      .cls-2 {
+        fill: #00c07e;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="Group_66" data-name="Group 66" transform="translate(-1513.547 -743.415)">
+    <g id="Rectangle_16" data-name="Rectangle 16" class="cls-1" transform="translate(1513.546 743.415)">
+      <rect class="cls-3" width="21.032" height="20.83" rx="10.415"/>
+      <rect class="cls-4" x="0.5" y="0.5" width="20.032" height="19.83" rx="9.915"/>
+    </g>
+    <path id="check-solid" class="cls-2" d="M3.6,72.848.155,69.4a.53.53,0,0,1,0-.75l.75-.75a.53.53,0,0,1,.75,0l2.321,2.321,4.971-4.971a.53.53,0,0,1,.75,0l.75.75a.53.53,0,0,1,0,.75l-6.1,6.1a.53.53,0,0,1-.75,0Z" transform="translate(1519.281 684.709)"/>
+  </g>
+</svg>

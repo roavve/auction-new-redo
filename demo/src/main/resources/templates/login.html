@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Energo-Pro Auction</title>
+    <link rel="stylesheet" href="/styles/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8">
+    <style>
+        nav.top-nav { background: #003399; padding: 8px 20px; display: flex; gap: 20px; }
+        nav.top-nav a { color: #fff; text-decoration: none; font-size: 14px; }
+        nav.top-nav a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div id="fragment"></div>
+
+<header>
+    <img src="/styles/img/header1.svg" alt="" id="header_fragment">
+    <div class="header-body">
+        <div class="row">
+            <div class="page-name">
+                <div class="small"><a href="">აუქციონები</a></div>
+                <div class="big"><a href="">ავტორიზაციის გვერდი</a></div>
+            </div>
+            <div id="logo">
+                <a href="/login"><img src="/styles/img/logo.svg" alt=""></a>
+            </div>
+            <div class="nav"></div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="login">
+        <div class="header bold">ავტორიზაცია</div>
+        <div class="body">
+            <p class="big">მოგესალმებით!</p>
+            <p>სისტემაში შესასვლელად გთხოვთ შეავსოთ ველები</p>
+
+            <form method="POST" action="/login" class="login-form" autocomplete="off">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <input type="email" required placeholder="ელ.ფოსტა" name="username">
+                <input type="password" required placeholder="პაროლი" name="password">
+
+                <span class="error" th:classappend="${loginError} ? 'active' : ''">
+                    ელ.ფოსტა ან პაროლი არასწორია
+                </span>
+
+                <input type="submit" class="login-submit" value="შესვლა">
+            </form>
+
+            <a href="/forgot-password" class="forg-pass">დაგავიწყდა პაროლი?</a>
+            <div class="stick"></div>
+            <p>თუ არ ხართ მომხმარებელი</p>
+            <a href="/register" class="register">დარეგისტრირდი</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="copyright bold">© ენერგო-პრო საქართველო.</div>
+    <div class="call"></div>
+    <img src="/styles/img/footer1.svg" alt="" id="footer_fragment">
+    <a href="/"><img id="footer-logo" src="/styles/img/footer-logo.svg"></a>
+</footer>
+
+<script src="/styles/js/jquery.min.js"></script>
+<script src="/styles/js/main.js"></script>
+</body>
+</html>

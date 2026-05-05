@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - აუქციონის ფორმა</title>
+    <link rel="stylesheet" href="/styles/css/style.css">
+    <style>
+
+
+
+
+        .form-card {
+            background: #fff;
+            border: 1px solid #d0e6f3;
+            border-radius: 8px;
+            padding: 32px;
+            max-width: 700px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #444;
+            margin-bottom: 6px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #008DD0;
+            box-shadow: 0 0 0 2px rgba(0,141,208,0.15);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .form-row .form-group {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+            align-items: center;
+        }
+        .btn-submit {
+            background: #008DD0;
+            color: #fff;
+            padding: 10px 28px;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .btn-submit:hover { background: #006fa0; }
+        .btn-cancel {
+            color: #555;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 10px 16px;
+        }
+        .btn-cancel:hover { color: #000; }
+
+        .form-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e0eef5;
+        }
+
+        .hint {
+            font-size: 0.75rem;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        .site-nav {
+            background: #0057a8; padding: 0 32px; display: flex;
+            align-items: center; height: 48px; position: sticky;
+            top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+        }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+        .nav-left { display: flex; align-items: center; gap: 32px; }
+        .nav-logo img { height: 26px; filter: brightness(0) invert(1); display: block; }
+        .nav-links { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px; }
+        .nav-links li a { color: rgba(255,255,255,0.88) !important; text-decoration: none !important;
+            font-size: 0.84rem; font-weight: 600; padding: 6px 14px; border-radius: 4px; transition: background 0.15s; }
+        .nav-links li a:hover { background: rgba(255,255,255,0.18); color: #fff !important; }
+        .nav-right { display: flex; align-items: center; }
+        .nav-user { color: rgba(255,255,255,0.65); font-size: 0.82rem; }
+
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments :: navbar}"></div>
+
+<div class="admin-bar">
+    <strong>⚙ Admin Panel</strong>
+    <span>|</span>
+    <a th:href="@{/admin}">← დაბრუნება დაფაზე</a>
+</div>
+
+<header>
+    <img src="/styles/img/header1.svg" alt="" id="header_fragment">
+    <div class="header-body">
+        <div class="row">
+            <div class="page-name">
+                <div class="small">ადმინ პანელი.</div>
+                <div class="big" th:text="${auction.id == null} ? 'ახალი აუქციონი' : 'აუქციონის რედაქტირება'">ფორმა</div>
+            </div>
+            <div id="logo">
+                <a href="/"><img src="/styles/img/logo.svg" alt=""></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="reg-header">
+        <div class="heading bold" th:text="${auction.id == null} ? 'ახალი ფასთა გამოკითხვა' : 'რედაქტირება'">ფორმა</div>
+    </div>
+
+    <div class="reg-body-1">
+        <div class="form-card">
+            <div class="form-title" th:text="${auction.id == null} ? '✦ შექმენი ახალი აუქციონი' : '✦ შეცვალე აუქციონი #' + ${auction.id}">ფორმა</div>
+
+            <form th:action="${auction.id == null} ? @{/admin/auction/save} : @{/admin/auction/{id}/save(id=${auction.id})}"
+                  method="post">
+
+                <!-- Name -->
+                <div class="form-group">
+                    <label>სახელი</label>
+                    <input type="text" name="name" th:value="${auction.name}" placeholder="მაგ: ელექტრომომარაგება 2026" required>
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label>აღწერა</label>
+                    <textarea name="description" th:text="${auction.description}" placeholder="ფასთა გამოკითხვის დეტალური აღწერა..."></textarea>
+                </div>
+
+                <!-- Type + Status -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>ტიპი</label>
+                        <select name="auctionType">
+                            <option value="SELL" th:selected="${auction.auctionType == 'SELL'}">SELL — ფასი იზრდება</option>
+                            <option value="BUY"  th:selected="${auction.auctionType == 'BUY'}">BUY — ფასი მცირდება</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>სტატუსი</label>
+                        <select name="status">
+                            <option value="ACTIVE"   th:selected="${auction.status == 'ACTIVE'}">ACTIVE — აქტიური</option>
+                            <option value="INACTIVE" th:selected="${auction.status == 'INACTIVE'}">INACTIVE — დასრულებული</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Start + End dates -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>დაწყების თარიღი</label>
+                        <input type="datetime-local" name="bidStartDate"
+                               th:value="${auction.bidStartDate != null} ? ${#temporals.format(auction.bidStartDate, 'yyyy-MM-dd''T''HH:mm')} : ''"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label>დასრულების თარიღი</label>
+                        <input type="datetime-local" name="bidEndDate"
+                               th:value="${auction.bidEndDate != null} ? ${#temporals.format(auction.bidEndDate, 'yyyy-MM-dd''T''HH:mm')} : ''"
+                               required>
+                    </div>
+                </div>
+
+                <!-- Bid values -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>საწყისი ბიდი</label>
+                        <input type="number" step="0.01" name="startBidValue" th:value="${auction.startBidValue}" placeholder="0.00" required>
+                    </div>
+                    <div class="form-group">
+                        <label>მაქსიმალური ბიდი</label>
+                        <input type="number" step="0.01" name="maxBidValue" th:value="${auction.maxBidValue}" placeholder="0.00">
+                    </div>
+                </div>
+
+                <!-- Bid step + Additional minute -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>ბიდის ნაბიჯი</label>
+                        <input type="number" step="0.01" name="bidStep" th:value="${auction.bidStep}" placeholder="0.00" required>
+                        <div class="hint">მინიმალური სხვაობა ბიდებს შორის</div>
+                    </div>
+                    <div class="form-group">
+                        <label>დამატებითი წუთი (Snipe Protection)</label>
+                        <input type="number" name="additionalMinute" th:value="${auction.additionalMinute}" placeholder="მაგ: 2">
+                        <div class="hint">წუთები, რომლითაც გაგრძელდება აუქციონი ბოლო 60 წამში ბიდის შემთხვევაში</div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">შენახვა</button>
+                    <a th:href="@{/admin}" class="btn-cancel">გაუქმება</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="copyright bold">© ენერგო-პრო საქართველო.</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - ფასთა გამოკითხვა</title>
+    <link rel="stylesheet" href="/styles/css/style.css">
+    <style>
+        /* ── Admin-only additions ── */
+
+
+
+
+        .stats-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .stat-card {
+            background: #f4f8fb;
+            border: 1px solid #d0e6f3;
+            border-radius: 6px;
+            padding: 16px 28px;
+            text-align: center;
+            min-width: 140px;
+        }
+        .stat-card .num {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #008DD0;
+        }
+        .stat-card .label {
+            font-size: 0.8rem;
+            color: #555;
+            margin-top: 2px;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+        }
+        .admin-table thead tr {
+            background: #008DD0;
+            color: #fff;
+        }
+        .admin-table th {
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .admin-table tbody tr {
+            border-bottom: 1px solid #e0eef5;
+        }
+        .admin-table tbody tr:hover {
+            background: #f0f8ff;
+        }
+        .admin-table td {
+            padding: 10px 14px;
+            vertical-align: middle;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+        }
+        .badge-active   { background: #d4f0dc; color: #1a7a35; }
+        .badge-inactive { background: #f0e4e4; color: #8b2020; }
+        .badge-buy      { background: #e4eeff; color: #1a3a8b; }
+        .badge-sell     { background: #fff4e4; color: #8b5c1a; }
+
+        .btn-sm {
+            display: inline-block;
+            padding: 5px 14px;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-edit   { background: #008DD0; color: #fff; }
+        .btn-edit:hover { background: #006fa0; }
+        .btn-delete { background: #d0392b; color: #fff; }
+        .btn-delete:hover { background: #a82920; }
+        .btn-view   { background: #eee; color: #333; }
+        .btn-view:hover { background: #ddd; }
+        .btn-new {
+            background: #008DD0;
+            color: #fff;
+            padding: 9px 22px;
+            border-radius: 5px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .btn-new:hover { background: #006fa0; }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .toolbar h2 {
+            margin: 0;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            font-style: italic;
+        }
+
+        .site-nav {
+            background: #0057a8; padding: 0 32px; display: flex;
+            align-items: center; height: 48px; position: sticky;
+            top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+        }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+        .nav-left { display: flex; align-items: center; gap: 32px; }
+        .nav-logo img { height: 26px; filter: brightness(0) invert(1); display: block; }
+        .nav-links { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px; }
+        .nav-links li a { color: rgba(255,255,255,0.88) !important; text-decoration: none !important;
+            font-size: 0.84rem; font-weight: 600; padding: 6px 14px; border-radius: 4px; transition: background 0.15s; }
+        .nav-links li a:hover { background: rgba(255,255,255,0.18); color: #fff !important; }
+        .nav-right { display: flex; align-items: center; }
+        .nav-user { color: rgba(255,255,255,0.65); font-size: 0.82rem; }
+
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments :: navbar}"></div>
+
+<header>
+    <img src="/styles/img/header1.svg" alt="" id="header_fragment">
+    <div class="header-body">
+        <div class="row">
+            <div class="page-name">
+                <div class="small">ადმინ პანელი.</div>
+                <div class="big">ფასთა გამოკითხვის მართვა</div>
+            </div>
+            <div id="logo">
+                <a href="/"><img src="/styles/img/logo.svg" alt=""></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="reg-header">
+        <div class="heading bold">აუქციონების მართვა</div>
+    </div>
+
+    <div class="reg-body-1">
+
+        <!-- Stats row -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="num" th:text="${totalCount}">0</div>
+                <div class="label">სულ აუქციონი</div>
+            </div>
+            <div class="stat-card">
+                <div class="num" th:text="${activeCount}">0</div>
+                <div class="label">აქტიური</div>
+            </div>
+            <div class="stat-card">
+                <div class="num" th:text="${totalCount - activeCount}">0</div>
+                <div class="label">დასრულებული</div>
+            </div>
+        </div>
+
+        <!-- Table toolbar -->
+        <div class="toolbar">
+            <h2>ყველა ფასთა გამოკითხვა</h2>
+            <a th:href="@{/admin/auction/new}" class="btn-new">+ ახალი აუქციონი</a>
+        </div>
+
+        <!-- Auctions table -->
+        <div th:if="${auctions != null and !auctions.isEmpty()}">
+            <table class="admin-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>სახელი</th>
+                    <th>ტიპი</th>
+                    <th>მდგომარეობა</th>
+                    <th>მიმდინარე ბიდი</th>
+                    <th>დასრულება</th>
+                    <th>მოქმედება</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="a : ${auctions}">
+                    <td th:text="${a.id}">1</td>
+                    <td class="bold" th:text="${a.name}">სახელი</td>
+                    <td>
+                            <span class="badge"
+                                  th:classappend="${a.auctionType == 'BUY'} ? 'badge-buy' : 'badge-sell'"
+                                  th:text="${a.auctionType}">BUY</span>
+                    </td>
+                    <td>
+                            <span class="badge"
+                                  th:classappend="${a.status == 'ACTIVE'} ? 'badge-active' : 'badge-inactive'"
+                                  th:text="${a.status == 'ACTIVE'} ? 'აქტიური' : 'დასრულებული'">აქტიური</span>
+                    </td>
+                    <td th:text="${a.currentHighestBid}">0.00</td>
+                    <td th:text="${#temporals.format(a.bidEndDate, 'dd/MM/yyyy HH:mm')}">—</td>
+                    <td style="display: flex; gap: 6px; flex-wrap: wrap;">
+                        <a th:href="@{/view/auction/{id}(id=${a.id})}" class="btn-sm btn-view">ნახვა</a>
+                        <a th:href="@{/admin/auction/{id}/edit(id=${a.id})}" class="btn-sm btn-edit">რედაქტირება</a>
+                        <form th:action="@{/admin/auction/{id}/delete(id=${a.id})}" method="post"
+                              style="display:inline;"
+                              onsubmit="return confirm('დარწმუნებული ხართ, რომ გსურთ წაშლა?')">
+                            <button type="submit" class="btn-sm btn-delete">წაშლა</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:if="${auctions == null or auctions.isEmpty()}" class="empty-state">
+            აუქციონები არ მოიძებნა. <a th:href="@{/admin/auction/new}">შექმენი პირველი.</a>
+        </div>
+
+    </div>
+</main>
+
+<footer>
+    <div class="copyright bold">© ენერგო-პრო საქართველო.</div>
+</footer>
+
+</body>
+</html>

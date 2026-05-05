@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ფასთა გამოკითხვა</title>
+    <!-- We link to the OLD styles we just moved -->
+    <link rel="stylesheet" href="/styles/css/style.css">
+    <link rel="stylesheet" href="/styles/css/daterangepicker.min.css">
+</head>
+<body>
+
+<header>
+    <img src="/styles/img/header1.svg" alt="" id="header_fragment">
+    <div class="header-body">
+        <div class="row">
+            <div class="page-name">
+                <div class="small">ფასთა გამოკითხვა.</div>
+                <div class="big">აქტიური ფასთა გამოკითხვის გვერდი</div>
+            </div>
+            <div id="logo">
+                <a href="/"><img src="/styles/img/logo.svg" alt=""></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="reg-header">
+        <div class="heading bold">ფასთა გამოკითხვა</div>
+    </div>
+
+    <div class="reg-body-1 auction">
+        <div class="heading">
+            <h1 class="bold" th:text="${auction.name}">Auction Name</h1>
+            <a href="/" class="bold">
+                <img src="/styles/img/back.svg" alt=""> უკან
+            </a>
+        </div>
+
+        <div class="body row">
+            <div class="discription">
+                <div class="text-content">
+                    <div class="type">
+                        <ul>
+                            <li>
+                                <div>ტიპი:</div>
+                                <div class="bold" th:text="${auction.auctionType}">ტიპი</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="auc-text">
+                        <div class="desc">ფასთა გამოკითხვის აღწერა:</div>
+                        <div class="a-text" th:text="${auction.description}">აღწერა</div>
+                    </div>
+                </div>
+
+                <ul id="auc-desc">
+                    <li>
+                        <div class="mt-4">
+                            <form th:action="@{/api/auctions/{id}/bid(id=${auction.id})}" method="get">
+                                <input type="hidden" name="userId" value="1">
+                                <div style="display: flex; gap: 10px; align-items: center;">
+                                    <input type="number" name="amount"
+                                           th:value="${auction.currentHighestBid + auction.bidStep}"
+                                           style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                                    <button type="submit" class="bold"
+                                            style="background: #008DD0; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                                        ბიდის განთავსება
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- THE TIMER (We keep the IDs so the old JS logic works) -->
+            <div class="time-details">
+                <p class="t-left" id="time_left"
+                   th:data-bidenddate="${#temporals.format(auction.bidEndDate, 'MMM dd, yyyy HH:mm:ss')}">
+                    დასრულებამდე დარჩენილია
+                </p>
+
+                <div class="dashed">
+                    <ul>
+                        <li><div class="day" id="day">0</div><div class="name">დღე</div></li>
+                        <li><div class="day" id="hour">0</div><div class="name">საათი</div></li>
+                        <li><div class="day" id="minute">0</div><div class="name">წუთი</div></li>
+                        <li style="color: #008DD0;"><div class="day" id="seconds">0</div><div class="name">წამი</div></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="copyright bold">© ენერგო-პრო საქართველო.</div>
+</footer>
+<script>
+    const timeLeftElement = document.getElementById('time_left');
+    const endDateString = timeLeftElement.getAttribute('data-bidenddate');
+    const countDownDate = new Date(endDateString).getTime();
+
+    const timerInterval = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = countDownDate - now;
+
+        const days    = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        if (distance < 0) {
+            clearInterval(timerInterval);
+            document.getElementById('day').textContent = "0";
+            document.getElementById('hour').textContent = "0";
+            document.getElementById('minute').textContent = "0";
+            document.getElementById('seconds').textContent = "0";
+        } else {
+            document.getElementById('day').textContent = days;
+            document.getElementById('hour').textContent = hours;
+            document.getElementById('minute').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+    }, 1000);
+</script>
+</body>
+</html>

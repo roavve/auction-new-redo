@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 480 60">
+  <defs>
+    <style>
+      .cls-1, .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-1 {
+        stroke: #707070;
+      }
+
+      .cls-2 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-4 {
+        filter: url(#Path_69);
+      }
+    </style>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_159" data-name="Rectangle 159" class="cls-1" width="480" height="60" transform="translate(-16663 -18117)"/>
+    </clipPath>
+    <filter id="Path_69" x="-22.5" y="-17.5" width="524.998" height="69.412" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="7.5" result="blur"/>
+      <feFlood flood-opacity="0.149"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Mask_Group_5" data-name="Mask Group 5" class="cls-2" transform="translate(16663 18117)">
+    <g class="cls-4" transform="matrix(1, 0, 0, 1, -16663, -18117)">
+      <path id="Path_69-2" data-name="Path 69" class="cls-3" d="M0,6570.639H480s-118.333,24.412-238.332,24.412S0,6570.639,0,6570.639Z" transform="translate(0 -6570.64)"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1680 79">
+  <defs>
+    <style>
+      .cls-1, .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-1 {
+        stroke: #707070;
+      }
+
+      .cls-2 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-4 {
+        fill: #0051cc;
+      }
+
+      .cls-5 {
+        filter: url(#Path_71);
+      }
+    </style>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_161" data-name="Rectangle 161" class="cls-1" width="1680" height="79" transform="translate(-12391 -14396)"/>
+    </clipPath>
+    <filter id="Path_71" x="-22.5" y="0.433" width="1725" height="95.761" filterUnits="userSpaceOnUse">
+      <feOffset dy="-5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="7.5" result="blur"/>
+      <feFlood flood-opacity="0.051"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Mask_Group_7" data-name="Mask Group 7" class="cls-2" transform="translate(12391 14396)">
+    <g id="Group_228" data-name="Group 228">
+      <g class="cls-5" transform="matrix(1, 0, 0, 1, -12391, -14396)">
+        <path id="Path_71-2" data-name="Path 71" class="cls-3" d="M0,0H1680s-414.167,50.76-834.167,50.76S0,0,0,0Z" transform="translate(1680 78.69) rotate(180)"/>
+      </g>
+      <path id="Path_72" data-name="Path 72" class="cls-4" d="M0,0H1680S1265.833,30.694,845.833,30.694,0,0,0,0Z" transform="translate(-10711 -14317.307) rotate(180)"/>
+    </g>
+  </g>
+</svg>

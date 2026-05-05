@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <defs>
+    <style>
+      .cls-1, .cls-4 {
+        fill: none;
+      }
+
+      .cls-1 {
+        stroke: #008dd0;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        fill: #008dd0;
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="Group_80" data-name="Group 80" transform="translate(-117 -880)">
+    <g id="Ellipse_3" data-name="Ellipse 3" class="cls-1" transform="translate(117 880)">
+      <circle class="cls-3" cx="20" cy="20" r="20"/>
+      <circle class="cls-4" cx="20" cy="20" r="19"/>
+    </g>
+    <g id="Group_81" data-name="Group 81" transform="translate(-863.979 -4735.053)">
+      <g id="Group_11" data-name="Group 11" transform="translate(1000.079 5634.377)">
+        <path id="Path_10" data-name="Path 10" class="cls-2" d="M241.369,21.1c-2.272,0-2.848,3.184-5.969,4.977,4.912-.368,10.209-1.488,13.889-4.977Z" transform="translate(-235.4 -21.1)"/>
+      </g>
+      <g id="Group_12" data-name="Group 12" transform="translate(989.518 5631.048)">
+        <path id="Path_11" data-name="Path 11" class="cls-2" d="M182.665.3C177.8.668,173.288,1.612,169.4,5.309h6.785C179.353,5.309,179.753,2.108,182.665.3Z" transform="translate(-169.4 -0.3)"/>
+      </g>
+      <g id="Group_13" data-name="Group 13" transform="translate(986.718 5631)">
+        <path id="Path_12" data-name="Path 12" class="cls-2" d="M171.086,0c-4.864,0-5.2,5.921-9.409,5.9h-4.8c-1.808,0-4.112.7-4.977,2.448h9.825c5.521,0,6.1-5.921,9.345-5.9h6.465A4.552,4.552,0,0,0,181.567,0H171.086Z" transform="translate(-151.9 0)"/>
+      </g>
+    </g>
+  </g>
+</svg>

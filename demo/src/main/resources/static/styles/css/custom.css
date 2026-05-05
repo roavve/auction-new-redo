@@ -1,0 +1,143 @@
+
+.loginColumns {
+    max-width: 550px;
+    margin: 0 auto;
+    padding: 100px 20px 20px 20px;
+}
+
+.login-header {
+	padding: 5px 5px 20px 5px;
+}
+
+.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 7px 7px 7px 20px;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.gray-bg {
+    background-color: #f4f6fa;
+}
+
+.blue-bg {
+    background-color:#1976D2; /* #0099da; #0e9aef; /* #0e9aef;  /*  #1c84c6;*/
+/*      background-image: url(patterns/header-profile-skin-1.png);
+  background-color: #0a4595;*/
+}
+
+.page-header-text {
+	font-size:24px;
+	color:white;
+	padding: 7px;
+	margin-left:30px;
+}
+
+.page-heading {
+    border-top: 0;
+    padding: 0 10px 5px 10px;
+	box-shadow: 0 0 1px 1px rgba(0,0,0,.14);
+}
+
+.ibox-title {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background-color: #ffffff;
+  border-color: #e7eaec;
+  border-image: none;
+  border-style: solid solid none;
+  border-width: 3px 1px 0 1px;
+  color: inherit;
+  margin-bottom: 0;
+  padding: 15px 15px 7px;
+  min-height: 48px;
+}
+
+.ibox-content {
+  background-color: #ffffff;
+  color: inherit;
+  padding: 15px 20px 20px 20px;
+  border-color: #e7eaec;
+  border-image: none;
+  border-style: solid solid solid;
+  border-width: 1px 1px 1px 1px;
+}
+
+.ibox-footer {
+  color: inherit;
+/*  border-top: 1px solid #e7eaec;*/
+  font-size: 90%;
+  background: #ffffff;
+  padding: 10px 15px;
+}
+
+.ibox-title h5 {
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 0 7px;
+    padding: 0;
+    text-overflow: ellipsis;
+    color:#0e9aef;
+    float: left;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+  color: #fff;
+  background-color: #286090;
+  border-color: #122b40;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #286090;
+  border-color: #204d74;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #286090;
+  border-color: #204d74;
+}
+.btn-primary:active:hover,
+.btn-primary.active:hover,
+.open > .dropdown-toggle.btn-primary:hover,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.btn-primary:active.focus,
+.btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary.focus {
+  color: #fff;
+  background-color: #204d74;
+  border-color: #122b40;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus,
+.btn-primary[disabled].focus,
+fieldset[disabled] .btn-primary.focus {
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+.btn-primary .badge {
+  color: #337ab7;
+  background-color: #fff;
+}
