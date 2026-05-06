@@ -5,15 +5,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    @Bean
-    public SpringSecurityDialect springSecurityDialect() {
-        return new SpringSecurityDialect();
-    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -21,12 +17,16 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/login", "/register", "/forgot-password",
                                 "/register-success", "/forgot-password-success",
-                                "/styles/**", "/scripts/**", "/images/**",
-                                "/css/**", "/js/**", "/img/**",
-                                "/**/*.css", "/**/*.js", "/**/*.svg",
-                                "/**/*.png", "/**/*.jpg", "/**/*.ico",
-                                "/h2-console/**", "/favicon.ico",
-                                "/auction/**"
+                                "/styles/**",
+                                "/scripts/**",
+                                "/images/**",
+                                "/css/**",
+                                "/js/**",
+                                "/img/**",
+                                "/h2-console/**",
+                                "/favicon.ico",
+                                "/auction/**",
+                                "/view/**"
                         ).permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
