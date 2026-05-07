@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter @Setter @NoArgsConstructor
-@Table(name = "DICTIONARY")
+@Table(name = "DI_DICTIONARY")
 public class Dictionary {
 
     @Id

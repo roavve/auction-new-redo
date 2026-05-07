@@ -12,51 +12,32 @@ import java.util.List;
 public interface AuctionBidRepository extends JpaRepository<AuctionBid, Integer> {
 
     @Query("SELECT b FROM AuctionBid b WHERE b.auction.id = :auctionId " +
-            "AND b.status.key = 'key.bid.status.active' " +
+            "AND b.status.key = 'key.bid.active' " +
             "ORDER BY b.bidValue ASC")
-    List<AuctionBid> findActiveBidsByAuctionOrderByValueAsc(@Param("auctionId") Integer auctionId);
+    List<AuctionBid> findMinBid(@Param("auctionId") Integer auctionId);
 
     @Query("SELECT b FROM AuctionBid b WHERE b.auction.id = :auctionId " +
-            "AND b.status.key = 'key.bid.status.active' " +
+            "AND b.status.key = 'key.bid.active' " +
             "ORDER BY b.bidValue DESC")
-    List<AuctionBid> findActiveBidsByAuctionOrderByValueDesc(@Param("auctionId") Integer auctionId);
+    List<AuctionBid> findMaxBid(@Param("auctionId") Integer auctionId);
 
     @Query("SELECT b FROM AuctionBid b WHERE b.auction.id = :auctionId " +
             "AND b.user.company.id = :companyId " +
-            "AND b.status.key = 'key.bid.status.active' " +
+            "AND b.status.key = 'key.bid.active' " +
             "ORDER BY b.bidDate DESC")
     List<AuctionBid> findBidsByAuctionAndCompany(@Param("auctionId") Integer auctionId,
                                                  @Param("companyId") Integer companyId);
 
     @Query("SELECT b FROM AuctionBid b WHERE b.auction.id = :auctionId " +
-            "AND b.status.key = 'key.bid.status.active' " +
-            "ORDER BY b.bidDate DESC")
-    List<AuctionBid> findAllActiveBidsByAuction(@Param("auctionId") Integer auctionId);
-
-    // min bid (lowest value - for BUY type)
-    @Query("SELECT b FROM AuctionBid b WHERE b.auction.id = :auctionId " +
-            "AND b.status.key = 'key.bid.status.active' " +
-            "ORDER BY b.bidValue ASC")
-    List<AuctionBid> findMinBid(@Param("auctionId") Integer auctionId);
-
-    // max bid (highest value - for SELL type)
-    @Query("SELECT b FROM AuctionBid b WHERE b.auction.id = :auctionId " +
-            "AND b.status.key = 'key.bid.status.active' " +
-            "ORDER BY b.bidValue DESC")
-    List<AuctionBid> findMaxBid(@Param("auctionId") Integer auctionId);
-
-    // my min bid
-    @Query("SELECT b FROM AuctionBid b WHERE b.auction.id = :auctionId " +
             "AND b.user.id = :userId " +
-            "AND b.status.key = 'key.bid.status.active' " +
+            "AND b.status.key = 'key.bid.active' " +
             "ORDER BY b.bidValue ASC")
     List<AuctionBid> findMyMinBid(@Param("auctionId") Integer auctionId,
                                   @Param("userId") Integer userId);
 
-    // my max bid
     @Query("SELECT b FROM AuctionBid b WHERE b.auction.id = :auctionId " +
             "AND b.user.id = :userId " +
-            "AND b.status.key = 'key.bid.status.active' " +
+            "AND b.status.key = 'key.bid.active' " +
             "ORDER BY b.bidValue DESC")
     List<AuctionBid> findMyMaxBid(@Param("auctionId") Integer auctionId,
                                   @Param("userId") Integer userId);
@@ -64,7 +45,7 @@ public interface AuctionBidRepository extends JpaRepository<AuctionBid, Integer>
     @Query("SELECT COUNT(b) FROM AuctionBid b WHERE b.auction.id = :auctionId " +
             "AND b.user.company.id = :companyId " +
             "AND b.bidPeriod = 1 " +
-            "AND b.status.key = 'key.bid.status.active'")
+            "AND b.status.key = 'key.bid.active'")
     Long countFirstPeriodBids(@Param("auctionId") Integer auctionId,
                               @Param("companyId") Integer companyId);
 }

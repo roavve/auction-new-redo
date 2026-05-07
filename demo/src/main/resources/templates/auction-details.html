@@ -32,7 +32,7 @@
     <div class="reg-body-1 auction">
         <div class="heading">
             <h1 class="bold" th:text="${auction.name}">Auction Name</h1>
-            <a href="/" class="bold">
+            <a href="/admin" class="bold">
                 <img src="/styles/img/back.svg" alt=""> უკან
             </a>
         </div>
@@ -57,8 +57,8 @@
                 <ul id="auc-desc">
                     <li>
                         <div class="mt-4">
-                            <form th:action="@{/api/auctions/{id}/bid(id=${auction.id})}" method="get">
-                                <input type="hidden" name="userId" value="1">
+                            <a href="/admin" class="bold">← უკან ადმინ პანელში</a>
+                            <input type="hidden" name="userId" value="1">
                                 <div style="display: flex; gap: 10px; align-items: center;">
                                     <input type="number" name="amount"
                                            th:value="${auction.startBidValue}"

@@ -44,7 +44,7 @@ public class AuctionService {
     }
 
     public List<Auction> getAllActive() {
-        return auctionRepository.findByStatus_Key("key.auction.status.active");
+        return auctionRepository.findByStatus_Key("key.auctionStatus.active");
     }
 
     @Transactional
@@ -88,7 +88,7 @@ public class AuctionService {
     public void rejectInvitation(String recordKey, Integer compUserId) {
         AuctionInvitation inv = invitationRepository.findByRecordKey(recordKey).orElseThrow();
         DictionaryItem rejected = dictionaryItemRepository
-                .findByKey("key.auction.invitation.status.rejected").orElseThrow();
+                .findByKey("key.auctionInvitation.rejected").orElseThrow();
         User user = new User();
         user.setId(compUserId);
         inv.setStatus(rejected);
@@ -101,7 +101,7 @@ public class AuctionService {
     public void agreeInvitation(String recordKey, Integer compUserId) {
         AuctionInvitation inv = invitationRepository.findByRecordKey(recordKey).orElseThrow();
         DictionaryItem approved = dictionaryItemRepository
-                .findByKey("key.auction.invitation.status.approved").orElseThrow();
+                .findByKey("key.bid.status.active").orElseThrow();
         User user = new User();
         user.setId(compUserId);
         inv.setStatus(approved);
@@ -181,7 +181,7 @@ public class AuctionService {
 
     private int saveBid(AuctionBid auctionBid, Auction auction) {
         DictionaryItem activeStatus = dictionaryItemRepository
-                .findByKey("key.bid.status.active").orElseThrow();
+                .findByKey("key.bid.active").orElseThrow();
         auctionBid.setRecordKey(UUID.randomUUID().toString());
         auctionBid.setBidDate(new Date());
         auctionBid.setStatus(activeStatus);
@@ -235,7 +235,7 @@ public class AuctionService {
     @Transactional
     public int addComment(AuctionComment comment) {
         DictionaryItem answered = dictionaryItemRepository
-                .findByKey("key.comment.status.answered").orElseThrow();
+                .findByKey("key.coment.answered").orElseThrow();
         comment.setRecordKey(UUID.randomUUID().toString());
         comment.setCommCreated(new Date());
         comment.setCreateDate(new Date());
