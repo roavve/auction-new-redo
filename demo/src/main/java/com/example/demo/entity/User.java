@@ -3,61 +3,97 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import java.util.Date;
+import java.util.UUID;
 
-import java.time.LocalDateTime;
-
-@Getter
-@Setter
 @Entity
-@Table(name = "users")
+@Getter @Setter @NoArgsConstructor
+@Table(name = "USER_USER")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public static final int STATUS_INACTIVE  = 0;
+    public static final int STATUS_ACTIVE    = 1;
+    public static final int STATUS_CANCELLED = 2;
+    public static final int STATUS_BLOCKED   = 3;
 
-    @Column(name = "first_name")
+    @Transient
+    private String salt = UUID.randomUUID().toString().substring(32);
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "COMPANY_ID")
+    private Company company;
+
+    @Column(name = "RECORD_KEY")
+    private String recordKey;
+
+    @Column(name = "ROLE")
+    private String role;
+
+    @Column(name = "IS_INTERNAL")
+    private Boolean internal;
+
+    @Column(name = "FIRST_NAME")
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "LAST_NAME")
     private String lastName;
 
-    @Column(name = "email", unique = true)
+    @Column(name = "USER_NAME")
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "USER_PASS")
     private String password;
 
-    @Column(name = "role")
-    private String role; // "USER", "ADMIN"
-
-    @Column(name = "status")
-    private int status; // 0=inactive, 1=active, 2=cancelled, 3=blocked
-
-    @Column(name = "active")
-    private Boolean active;
-
-    @Column(name = "locked")
-    private Boolean locked;
-
-    @Column(name = "act_key")
-    private String actKey;
-
-    @Column(name = "contact_position")
+    @Column(name = "CONTACT_POSITION")
     private String contactPosition;
 
-    @Column(name = "contact_email")
+    @Column(name = "CONTACT_MAIL")
     private String contactEmail;
 
-    @Column(name = "contact_phone")
+    @Column(name = "CONTACT_PHONE")
     private String contactPhone;
 
-    @Column(name = "contact_mobile")
+    @Column(name = "CONTACT_MOBILE")
     private String contactMobile;
 
-    @Column(name = "register_date")
-    private LocalDateTime registerDate;
+    @Column(name = "REGISTER_DATE")
+    private Date registerDate;
 
-    @Column(name = "login_date")
-    private LocalDateTime loginDate;
+    @Column(name = "CONFIRM_EMAIL_DATE")
+    private Date confirmEmailDate;
+
+    @Column(name = "ACTIVATE_DATE")
+    private Date activateDate;
+
+    @Column(name = "IS_ACTIVE")
+    private Boolean active;
+
+    @Column(name = "LOCK_DATE")
+    private Date lockDate;
+
+    @Column(name = "IS_LOCKED")
+    private Boolean locked;
+
+    @Column(name = "LOGIN_DATE")
+    private Date loginDate;
+
+    @Column(name = "IS_CANCELLED")
+    private Boolean cancelled;
+
+    @Column(name = "CANCELL_DATE")
+    private Date cancelledDate;
+
+    @Column(name = "USER_STATUS")
+    private int status;
+
+    @Column(name = "ACTIVATE_CODE")
+    private String actKey = UUID.randomUUID().toString();
+
+    @Column(name = "IS_EXTERNAL")
+    private Boolean external;
 }

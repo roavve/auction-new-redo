@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ფასთა გამოკითხვა - ახალი მოწვევა</title>
+    <link rel="stylesheet" href="/styles/css/style.css">
+</head>
+<body>
+
+<div th:replace="~{fragments :: navbar}"></div>
+
+<header>
+    <img src="/styles/img/header1.svg" alt="" id="header_fragment">
+    <div class="header-body">
+        <div class="row">
+            <div class="page-name">
+                <div class="small">ფასთა გამოკითხვა.</div>
+                <div class="big">ახალი ფასთა გამოკითხვის გვერდი</div>
+            </div>
+            <div id="logo">
+                <a href="/"><img src="/styles/img/logo.svg" alt=""></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="reg-header">
+        <div class="heading bold">ფასთა გამოკითხვა</div>
+    </div>
+
+    <div class="reg-body-1 auction" th:with="inv=${auctionInfo.auctionInvitation}">
+        <div class="heading">
+            <h1 class="bold" th:text="${inv.auction.name}">სახელი</h1>
+            <a href="/" class="bold"><img src="/styles/img/back.svg" alt=""> უკან</a>
+        </div>
+
+        <div class="body row">
+            <div class="discription">
+                <div class="text-content">
+                    <div class="type">
+                        <ul>
+                            <li>
+                                <div>ტიპი:</div>
+                                <div class="bold" th:text="${inv.auction.auctionType?.nameGE}">ტიპი</div>
+                            </li>
+                            <li>
+                                <div>პროექტი:</div>
+                                <div class="bold" th:text="${inv.auction.project?.name}">პროექტი</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="auc-text">
+                        <div class="desc">მოწვევის ტექსტი:</div>
+                        <div class="a-text" th:text="${inv.auction.inviteText}">ტექსტი</div>
+                    </div>
+                    <div class="auc-text">
+                        <div class="desc">ფასთა გამოკითხვის აღწერა:</div>
+                        <div class="a-text" th:text="${inv.auction.desc}">აღწერა</div>
+                    </div>
+                </div>
+
+                <ul id="auc-desc">
+                    <li>
+                        <div class="type">მინიმალური ბიდი:</div>
+                        <div class="value bold" th:text="${inv.auction.startBidValue}">0</div>
+                    </li>
+                    <li>
+                        <div class="type">მაქსიმალური ბიდი:</div>
+                        <div class="value bold" th:text="${inv.auction.maxBidValue}">0</div>
+                    </li>
+                    <li>
+                        <div class="type">ბიჯი:</div>
+                        <div class="value bold" th:text="${inv.auction.bidStep}">0</div>
+                    </li>
+                </ul>
+
+                <ul id="auc-desc">
+                    <li>
+                        <div class="type">რაოდენობა:</div>
+                        <div class="value bold" th:text="${inv.auction.quantity}">0</div>
+                    </li>
+                    <li>
+                        <div class="type">ერთეული:</div>
+                        <div class="value bold" th:text="${inv.auction.uom?.name}">-</div>
+                    </li>
+                    <li>
+                        <div class="type">ტიპი:</div>
+                        <div class="value bold" th:text="${inv.auction.valueType?.name}">-</div>
+                    </li>
+                    <li>
+                        <div class="type">ვალუტა:</div>
+                        <div class="value bold" th:text="${inv.auction.currency?.name}">-</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="time-details">
+                <p class="t-left">დაწყებამდე დარჩა</p>
+                <div class="dashed">
+                    <ul>
+                        <li><div class="day" id="day">0</div><div class="name">დღე</div></li>
+                        <li><div class="day" id="hour">0</div><div class="name">საათი</div></li>
+                        <li><div class="day" id="minute">0</div><div class="name">წუთი</div></li>
+                        <li style="color:#008DD0"><div class="day" id="seconds">0</div><div class="name">წამი</div></li>
+                    </ul>
+                </div>
+                <div class="periods">
+                    <div class="period">
+                        <div class="inner">
+                            <div class="_text">ტექნიკური საკითხების დასრულების პერიოდი:</div>
+                            <div class="time">
+                                <div class="start bold" th:text="${#dates.format(inv.auction.discussStartDate,'dd/MM/yyyy')}">-</div>
+                                <div class="end bold" th:text="${#dates.format(inv.auction.discussEndDate,'dd/MM/yyyy')}">-</div>
+                            </div>
+                            <img src="/styles/img/clock.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="period">
+                        <div class="inner">
+                            <div class="_text">შემოთავაზებების მიღების პერიოდი:</div>
+                            <div class="time">
+                                <div class="start bold"
+                                     th:text="${#dates.format(inv.auction.auctionStartDate,'dd/MM/yyyy')} + ' ' + ${inv.auction.startTime}">-</div>
+                                <div class="end bold"
+                                     th:text="${#dates.format(inv.auction.auctionEndDate,'dd/MM/yyyy')} + ' ' + ${inv.auction.endTime}">-</div>
+                            </div>
+                            <img src="/styles/img/clock.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="period">
+                        <div class="inner">
+                            <div class="_text">ფასთა გამოკითხვის პერიოდი:</div>
+                            <div class="time">
+                                <div class="start bold"
+                                     th:text="${#dates.format(inv.auction.bidStartDate,'dd/MM/yyyy')} + ' ' + ${inv.auction.bidStartTime}">-</div>
+                                <div class="end bold"
+                                     th:text="${#dates.format(inv.auction.bidEndDate,'dd/MM/yyyy')} + ' ' + ${inv.auction.bidEndTime}">-</div>
+                            </div>
+                            <img src="/styles/img/clock.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documentation -->
+        <div id="cond-buttons">
+            <div class="button active" data-index="1"><img src="/styles/img/document.svg" alt="">დოკუმენტაცია</div>
+        </div>
+        <div id="cond-body">
+            <div class="cond-text active" data-index="1">
+                <div class="documentation">
+                    <ul class="heading">
+                        <li class="bold">დასახელება</li>
+                        <li class="bold">აღწერა</li>
+                        <li class="bold">გადმოწერა</li>
+                    </ul>
+                    <ul class="document" th:each="f : ${auctionInfo.revisionFiles}">
+                        <li><div class="name" th:text="${f.fileName}">ფაილი</div></li>
+                        <li><div class="desc" th:text="${f.fileDescription}">აღწერა</div></li>
+                        <li>
+                            <a th:href="@{/auction/download_revision_file(attachmentKey=${f.recordKey})}">
+                                <div class="download"><img src="/styles/img/download.svg" alt="">გადმოწერა</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terms -->
+        <div class="reg-body-1 last">
+            <div id="cond-buttons">
+                <div class="button bold active" data-index="1" style="padding-left:18px">პირობები</div>
+                <div class="button bold" data-index="2" style="padding-left:18px">Conditions</div>
+            </div>
+            <div id="cond-body">
+                <div class="cond-text active" data-index="1">
+                    <p>თქვენ იმყოფებით ს.ს. „ენერგო-პრო ჯორჯიას" ფასთა გამოკითხვის ვებ-გვერდზე.</p>
+                    <p>რეგისტრაციაზე მოთხოვნის გაგზავნა ავტომატურად ნიშნავს რომ თქვნ წაკითხული გაქვთ მოცემული განმარტებები და ეთანხმაებით მასში წარმოდგენილ პუნქტებს.</p>
+                </div>
+                <div class="cond-text" data-index="2">
+                    <p>You are on the Price Quotation web-page of JSC ENERGO-PRO Georgia.</p>
+                    <p>Requesting the registration automatically means that you read and considered the terms and conditions of the definitions.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="reg-cond-body">
+            <div class="reg-condition">
+                <span>გავეცანი და ვეთანხმები პირობებს</span>
+                <div class="check"><img src="/styles/img/check.svg" alt=""></div>
+            </div>
+        </div>
+
+        <!-- Accept / Reject buttons -->
+        <div id="invite-btns">
+            <form th:action="@{/auction/auction_accept}" method="post" style="display:inline">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <input type="hidden" name="recordKey" th:value="${inv.recordKey}"/>
+                <button type="submit" class="btn accept">
+                    დადასტურება <img src="/styles/img/confirmed.svg" alt="">
+                </button>
+            </form>
+            <form th:action="@{/auction/auction_reject}" method="post" style="display:inline; margin-left:2%">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <input type="hidden" name="recordKey" th:value="${inv.recordKey}"/>
+                <button type="submit" class="btn reject">
+                    უარყოფა <img src="/styles/img/refused.svg" alt="">
+                </button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="copyright bold">© ენერგო-პრო საქართველო.</div>
+</footer>
+
+<script src="/styles/js/jquery-2.1.1.js"></script>
+<script src="/styles/js/main.js"></script>
+<script th:inline="javascript">
+    var startDate = /*[[${#dates.format(auctionInfo.auctionInvitation.auction.auctionStartDate,'MMM dd, yyyy')}]]*/ '';
+    var startTime = /*[[${auctionInfo.auctionInvitation.auction.startTime}]]*/ '';
+    var countDownDate = new Date(startDate + " " + startTime + ":00").getTime();
+
+    var x = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+        if (distance < 0) distance = 0;
+        document.getElementById('day').innerHTML    = Math.floor(distance / (1000*60*60*24));
+        document.getElementById('hour').innerHTML   = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+        document.getElementById('minute').innerHTML = Math.floor((distance % (1000*60*60)) / (1000*60));
+        document.getElementById('seconds').innerHTML = Math.floor((distance % (1000*60)) / 1000);
+        if (distance === 0) clearInterval(x);
+    }, 1000);
+</script>
+</body>
+</html>

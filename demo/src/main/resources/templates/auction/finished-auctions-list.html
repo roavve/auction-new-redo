@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>დასრულებული ფასთა გამოკითხვები</title>
+    <link rel="stylesheet" href="/styles/css/style.css">
+    <style>
+        .auction-table { width:100%; border-collapse:collapse; font-size:0.88rem; }
+        .auction-table thead tr { background:#008DD0; color:#fff; }
+        .auction-table th { padding:10px 14px; text-align:left; font-weight:600; }
+        .auction-table tbody tr { border-bottom:1px solid #e0eef5; }
+        .auction-table tbody tr:hover { background:#f0f8ff; }
+        .auction-table td { padding:10px 14px; vertical-align:middle; }
+        .badge { display:inline-block; padding:2px 10px; border-radius:20px; font-size:0.75rem; font-weight:700; }
+        .badge-inactive { background:#f0e4e4; color:#8b2020; }
+        .empty-state { text-align:center; padding:32px; color:#999; font-style:italic; }
+    </style>
+</head>
+<body>
+
+<div th:replace="~{fragments :: navbar}"></div>
+
+<header>
+    <img src="/styles/img/header1.svg" alt="" id="header_fragment">
+    <div class="header-body">
+        <div class="row">
+            <div class="page-name">
+                <div class="small">ფასთა გამოკითხვა.</div>
+                <div class="big">დასრულებული ფასთა გამოკითხვები</div>
+            </div>
+            <div id="logo">
+                <a href="/"><img src="/styles/img/logo.svg" alt=""></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="reg-header">
+        <div class="heading bold end">დასრულებული ფასთა გამოკითხვები</div>
+    </div>
+
+    <div class="reg-body-1">
+        <div th:if="${auction.finishedAuction != null and !auction.finishedAuction.isEmpty()}">
+            <table class="auction-table">
+                <thead>
+                <tr>
+                    <th>ტიპი</th>
+                    <th>დასახელება</th>
+                    <th>ვალუტა</th>
+                    <th>დაწყების დრო</th>
+                    <th>დასრულების დრო</th>
+                    <th>სტატუსი</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ai : ${auction.finishedAuction}"
+                    th:onclick="|window.location='/auction/finished_auction?recordKey=${ai.recordKey}'|"
+                    style="cursor:pointer">
+                    <td th:text="${ai.auction.auctionType?.nameGE}">ტიპი</td>
+                    <td class="bold" th:text="${ai.auction.name}">სახელი</td>
+                    <td th:text="${ai.auction.currency?.name}">-</td>
+                    <td th:text="${ai.auction.auctionStartDate != null} ? ${#dates.format(ai.auction.auctionStartDate,'dd.MM.yyyy')} + ' ' + ${ai.auction.startTime} : '-'">-</td>
+                    <td th:text="${ai.auction.bidEndDate != null} ? ${#dates.format(ai.auction.bidEndDate,'dd.MM.yyyy')} + ' ' + ${ai.auction.bidEndTime} : '-'">-</td>
+                    <td><span class="badge badge-inactive" th:text="${ai.auction.status?.nameGE}">დასრულებული</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${auction.finishedAuction == null or auction.finishedAuction.isEmpty()}" class="empty-state">
+            დასრულებული ფასთა გამოკითხვა არ მოიძებნა.
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="copyright bold">© ენერგო-პრო საქართველო.</div>
+</footer>
+
+<script src="/styles/js/jquery-2.1.1.js"></script>
+<script src="/styles/js/main.js"></script>
+</body>
+</html>

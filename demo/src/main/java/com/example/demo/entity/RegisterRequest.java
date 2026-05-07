@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter @Setter @NoArgsConstructor
@@ -16,10 +15,9 @@ public class RegisterRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Company info
     private String companyName;
-    private String companyType;   // e.g. "შპს", "სს" etc — plain string for now
-    private String category;      // plain string for now
+    private String companyType;
+    private String category;
     private String taxId;
     private String businessDesc;
     private String phisAddress;
@@ -29,7 +27,6 @@ public class RegisterRequest {
     private String bankAccount1;
     private String webSite;
 
-    // Contact person
     private String contactName;
     private String contactSurname;
     private String contactPosition;
@@ -37,11 +34,11 @@ public class RegisterRequest {
     private String contactPhone;
     private String contactMobile;
 
-    // Meta
-    private String status; // "PENDING", "APPROVED", "REJECTED"
-    private LocalDateTime requestDate;
+    private String status;
 
-    // Files stored as byte arrays
+    @Column(name = "request_date")
+    private Date requestDate;
+
     @Lob
     @Column(name = "reg_file", columnDefinition = "BLOB")
     private byte[] regFile;

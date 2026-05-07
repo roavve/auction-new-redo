@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Service
 public class RegistrationService {
@@ -47,7 +47,7 @@ public class RegistrationService {
         req.setContactPhone(contactPhone);
         req.setContactMobile(contactMobile);
         req.setStatus("PENDING");
-        req.setRequestDate(LocalDateTime.now());
+        req.setRequestDate(new Date());
 
         if (regFile != null && !regFile.isEmpty()) {
             req.setRegFile(regFile.getBytes());

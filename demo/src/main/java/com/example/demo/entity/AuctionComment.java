@@ -8,8 +8,8 @@ import java.util.Date;
 
 @Entity
 @Getter @Setter @NoArgsConstructor
-@Table(name = "AUCTION_BID")
-public class AuctionBid {
+@Table(name = "AUCTION_COMMENT")
+public class AuctionComment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,16 +26,22 @@ public class AuctionBid {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @Column(name = "BID_VALUE")
-    private Double bidValue;
+    @Column(name = "COMM_TEXT", length = 2000)
+    private String commText;
 
-    @Column(name = "DATETIME")
-    private Date bidDate;
+    @Column(name = "COMM_CREATED")
+    private Date commCreated;
+
+    @Column(name = "IS_ADMIN")
+    private Boolean admin;
 
     @ManyToOne
-    @JoinColumn(name = "STATUS_KEY", nullable = false)
+    @JoinColumn(name = "STATUS_KEY")
     private DictionaryItem status;
 
-    @Column(name = "BID_PERIOD")
-    private Integer bidPeriod;
+    @Column(name = "ANSWER_TO_KEY")
+    private String answerToKey;
+
+    @Column(name = "CREATE_DATE")
+    private Date createDate;
 }

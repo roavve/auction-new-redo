@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -24,7 +24,6 @@ public class DemoApplication {
 								   UserRepository userRepo,
 								   PasswordEncoder passwordEncoder) {
 		return args -> {
-			// Test admin user
 			if (!userRepo.existsByEmail("admin@company.com")) {
 				User admin = new User();
 				admin.setFirstName("Admin");
@@ -35,12 +34,11 @@ public class DemoApplication {
 				admin.setStatus(1);
 				admin.setActive(true);
 				admin.setLocked(false);
-				admin.setRegisterDate(LocalDateTime.now());
+				admin.setRegisterDate(new Date());
 				userRepo.save(admin);
 				System.out.println(">>> ADMIN USER CREATED: admin@company.com / admin123");
 			}
 
-			// Test regular user
 			if (!userRepo.existsByEmail("user@company.com")) {
 				User user = new User();
 				user.setFirstName("user");
@@ -51,24 +49,9 @@ public class DemoApplication {
 				user.setStatus(1);
 				user.setActive(true);
 				user.setLocked(false);
-				user.setRegisterDate(LocalDateTime.now());
+				user.setRegisterDate(new Date());
 				userRepo.save(user);
 				System.out.println(">>> TEST USER CREATED: user@company.com / user123");
-			}
-
-			// Test auction
-			if (auctionRepo.count() == 0) {
-				Auction a = new Auction();
-				a.setName("auction test");
-				a.setAuctionType("SELL");
-				a.setStartBidValue(100.0);
-				a.setCurrentHighestBid(100.0);
-				a.setBidStep(10.0);
-				a.setAdditionalMinute(5);
-				a.setStatus("ACTIVE");
-				a.setBidEndDate(LocalDateTime.now().plusDays(1));
-				auctionRepo.save(a);
-				System.out.println(">>> TEST AUCTION CREATED: ID " + a.getId());
 			}
 		};
 	}

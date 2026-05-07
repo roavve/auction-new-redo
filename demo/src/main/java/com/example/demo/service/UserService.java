@@ -7,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -56,7 +56,7 @@ public class UserService implements UserDetailsService {
         user.setActive(true);
         user.setLocked(false);
         user.setContactPhone(contactPhone);
-        user.setRegisterDate(LocalDateTime.now());
+        user.setRegisterDate(new Date());
         userRepository.save(user);
         return true;
     }
@@ -68,12 +68,12 @@ public class UserService implements UserDetailsService {
     @Transactional
     public void updateLoginDate(String email) {
         userRepository.findByEmail(email).ifPresent(u -> {
-            u.setLoginDate(LocalDateTime.now());
+            u.setLoginDate(new Date());
             userRepository.save(u);
         });
     }
 
-    public User getById(Long id) {
+    public User getById(Integer id) {
         return userRepository.findById(id).orElse(null);
     }
 }
