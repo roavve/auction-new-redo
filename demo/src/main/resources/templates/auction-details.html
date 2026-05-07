@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ფასთა გამოკითხვა</title>
-    <!-- We link to the OLD styles we just moved -->
     <link rel="stylesheet" href="/styles/css/style.css">
     <link rel="stylesheet" href="/styles/css/daterangepicker.min.css">
 </head>
@@ -45,13 +44,13 @@
                         <ul>
                             <li>
                                 <div>ტიპი:</div>
-                                <div class="bold" th:text="${auction.auctionType}">ტიპი</div>
+                                <div class="bold" th:text="${auction.auctionType?.nameGE}">ტიპი</div>
                             </li>
                         </ul>
                     </div>
                     <div class="auc-text">
                         <div class="desc">ფასთა გამოკითხვის აღწერა:</div>
-                        <div class="a-text" th:text="${auction.description}">აღწერა</div>
+                        <div class="a-text" th:text="${auction.desc}">აღწერა</div>
                     </div>
                 </div>
 
@@ -62,7 +61,7 @@
                                 <input type="hidden" name="userId" value="1">
                                 <div style="display: flex; gap: 10px; align-items: center;">
                                     <input type="number" name="amount"
-                                           th:value="${auction.currentHighestBid + auction.bidStep}"
+                                           th:value="${auction.startBidValue}"
                                            style="padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
                                     <button type="submit" class="bold"
                                             style="background: #008DD0; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
@@ -75,10 +74,9 @@
                 </ul>
             </div>
 
-            <!-- THE TIMER (We keep the IDs so the old JS logic works) -->
             <div class="time-details">
                 <p class="t-left" id="time_left"
-                   th:data-bidenddate="${#temporals.format(auction.bidEndDate, 'MMM dd, yyyy HH:mm:ss')}">
+                   th:data-bidenddate="${auction.bidEndDate != null} ? ${#dates.format(auction.bidEndDate, 'MMM dd, yyyy HH:mm:ss')} : ''">
                     დასრულებამდე დარჩენილია
                 </p>
 

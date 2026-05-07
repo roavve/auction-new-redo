@@ -114,7 +114,7 @@
     </div>
 
     <div class="reg-body-1">
-        <div th:if="${activeAuctions != null and !activeAuctions.isEmpty()}">
+        <div th:if="${auction.activeAuction != null and !auction.activeAuction.isEmpty()}">
             <table class="auction-table">
                 <thead>
                 <tr>
@@ -127,23 +127,23 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="a : ${activeAuctions}"
-                    th:onclick="|window.location='/view/auction/${a.id}'|">
-                    <td class="bold" th:text="${a.name}">სახელი</td>
+                <tr th:each="a : ${auction.activeAuction}"
+                    th:onclick="|window.location='/auction/active_invitation?recordKey=${a.recordKey}'|">
+                    <td class="bold" th:text="${a.auction.name}">სახელი</td>
                     <td>
-                            <span class="badge"
-                                  th:classappend="${a.auctionType == 'BUY'} ? 'badge-buy' : 'badge-sell'"
-                                  th:text="${a.auctionType}">BUY</span>
+                        <span class="badge"
+                              th:classappend="${a.auction.auctionType?.key == 'key.auctionType.buy'} ? 'badge-buy' : 'badge-sell'"
+                              th:text="${a.auction.auctionType?.nameGE}">-</span>
                     </td>
-                    <td th:text="${a.currentHighestBid}">0.00</td>
-                    <td th:text="${a.bidStep}">0.00</td>
-                    <td th:text="${#temporals.format(a.bidEndDate, 'dd/MM/yyyy HH:mm')}">—</td>
+                    <td th:text="${a.minBidValue?.bidValue}">0.00</td>
+                    <td th:text="${a.auction.bidStep}">0.00</td>
+                    <td th:text="${a.auction.bidEndDate != null} ? ${#dates.format(a.auction.bidEndDate,'dd/MM/yyyy')} + ' ' + ${a.auction.bidEndTime} : '-'">—</td>
                     <td><span class="badge badge-active">აქტიური</span></td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <div th:if="${activeAuctions == null or activeAuctions.isEmpty()}" class="empty-state">
+        <div th:if="${auction.activeAuction == null or auction.activeAuction.isEmpty()}" class="empty-state">
             ამჟამად აქტიური ფასთა გამოკითხვა არ არის.
         </div>
     </div>
@@ -153,7 +153,7 @@
     </div>
 
     <div class="reg-body-1">
-        <div th:if="${finishedAuctions != null and !finishedAuctions.isEmpty()}">
+        <div th:if="${auction.finishedAuction != null and !auction.finishedAuction.isEmpty()}">
             <table class="auction-table">
                 <thead>
                 <tr>
@@ -165,21 +165,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="a : ${finishedAuctions}">
-                    <td class="bold" th:text="${a.name}">სახელი</td>
+                <tr th:each="a : ${auction.finishedAuction}"
+                    th:onclick="|window.location='/auction/finished_auction?recordKey=${a.recordKey}'|">
+                    <td class="bold" th:text="${a.auction.name}">სახელი</td>
                     <td>
-                            <span class="badge"
-                                  th:classappend="${a.auctionType == 'BUY'} ? 'badge-buy' : 'badge-sell'"
-                                  th:text="${a.auctionType}">BUY</span>
+                        <span class="badge"
+                              th:classappend="${a.auction.auctionType?.key == 'key.auctionType.buy'} ? 'badge-buy' : 'badge-sell'"
+                              th:text="${a.auction.auctionType?.nameGE}">-</span>
                     </td>
-                    <td th:text="${a.currentHighestBid}">0.00</td>
-                    <td th:text="${#temporals.format(a.bidEndDate, 'dd/MM/yyyy HH:mm')}">—</td>
+                    <td th:text="${a.minBidValue?.bidValue}">0.00</td>
+                    <td th:text="${a.auction.bidEndDate != null} ? ${#dates.format(a.auction.bidEndDate,'dd/MM/yyyy')} + ' ' + ${a.auction.bidEndTime} : '-'">—</td>
                     <td><span class="badge badge-inactive">დასრულებული</span></td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <div th:if="${finishedAuctions == null or finishedAuctions.isEmpty()}" class="empty-state">
+        <div th:if="${auction.finishedAuction == null or auction.finishedAuction.isEmpty()}" class="empty-state">
             დასრულებული ფასთა გამოკითხვა არ მოიძებნა.
         </div>
     </div>

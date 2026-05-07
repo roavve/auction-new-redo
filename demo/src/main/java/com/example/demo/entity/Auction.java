@@ -19,7 +19,7 @@ public class Auction {
     private String recordKey;
 
     @ManyToOne
-    @JoinColumn(name = "AUCTION_TYPE", nullable = false)
+    @JoinColumn(name = "AUCTION_TYPE", nullable = true)
     private DictionaryItem auctionType;
 
     @ManyToOne
@@ -33,7 +33,7 @@ public class Auction {
     private String desc;
 
     @ManyToOne
-    @JoinColumn(name = "STATUS_KEY", nullable = false)
+    @JoinColumn(name = "STATUS_KEY", nullable = true)
     private DictionaryItem status;
 
     @ManyToOne
@@ -45,14 +45,14 @@ public class Auction {
     private AuctionProject project;
 
     @ManyToOne
-    @JoinColumn(name = "VALUE_TYPE_KEY", nullable = false)
+    @JoinColumn(name = "VALUE_TYPE_KEY", nullable = true)
     private DictionaryItem valueType;
 
     @Column(name = "QUANTITY")
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "UOM_KEY", nullable = false)
+    @JoinColumn(name = "UOM_KEY", nullable = true)
     private DictionaryItem uom;
 
     @Column(name = "BID_STEP")

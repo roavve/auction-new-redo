@@ -163,7 +163,7 @@
                 <!-- Description -->
                 <div class="form-group">
                     <label>აღწერა</label>
-                    <textarea name="description" th:text="${auction.description}" placeholder="ფასთა გამოკითხვის დეტალური აღწერა..."></textarea>
+                    <textarea name="desc" th:text="${auction.desc}" placeholder="ფასთა გამოკითხვის დეტალური აღწერა..."></textarea>
                 </div>
 
                 <!-- Type + Status -->
@@ -189,14 +189,12 @@
                     <div class="form-group">
                         <label>დაწყების თარიღი</label>
                         <input type="datetime-local" name="bidStartDate"
-                               th:value="${auction.bidStartDate != null} ? ${#temporals.format(auction.bidStartDate, 'yyyy-MM-dd''T''HH:mm')} : ''"
-                               required>
+                               th:value="${auction.bidStartDate != null} ? ${#dates.format(auction.bidStartDate, 'yyyy-MM-dd''T''HH:mm')} : ''"                               required>
                     </div>
                     <div class="form-group">
                         <label>დასრულების თარიღი</label>
                         <input type="datetime-local" name="bidEndDate"
-                               th:value="${auction.bidEndDate != null} ? ${#temporals.format(auction.bidEndDate, 'yyyy-MM-dd''T''HH:mm')} : ''"
-                               required>
+                               th:value="${auction.bidEndDate != null} ? ${#dates.format(auction.bidEndDate, 'yyyy-MM-dd''T''HH:mm')} : ''"                               required>
                     </div>
                 </div>
 
