@@ -15,7 +15,7 @@ public class Auction {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "RECORDKEY")
+    @Column(name = "RECORD_KEY")
     private String recordKey;
 
     @ManyToOne
