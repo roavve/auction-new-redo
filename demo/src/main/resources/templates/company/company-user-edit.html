@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <title>Energo-Pro</title>
+    <link rel="stylesheet" href="/styles/css/style.css">
+    <style>
+        .company-subnav {
+            display: flex;
+            gap: 0;
+            margin: 24px 32px;
+            border-bottom: 2px solid #e0eef5;
+            flex-wrap: wrap;
+        }
+        .company-subnav a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #444;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: color 0.15s, border-color 0.15s;
+        }
+        .company-subnav a:hover,
+        .company-subnav a.active {
+            color: #008DD0;
+            border-bottom-color: #008DD0;
+        }
+        .company-subnav .divider {
+            width: 1px;
+            background: #e0eef5;
+            margin: 6px 0;
+        }
+        .form-card {
+            background: #fff;
+            border: 1px solid #d0e6f3;
+            border-radius: 8px;
+            padding: 32px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .form-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e0eef5;
+        }
+        .form-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .form-row .form-group { flex: 1; min-width: 200px; }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #444;
+            margin-bottom: 6px;
+        }
+        .form-group input {
+            width: 100%;
+            font-size: 0.9rem;
+            color: #3E3E3E;
+            padding: 9px 12px;
+            border-radius: 8px;
+            border: 1px solid #C8C8C8;
+            box-sizing: border-box;
+            background: #f8f8f8;
+        }
+        .error-msg {
+            color: red;
+            display: none;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="~{fragments :: navbar}"></div>
+
+<header>
+    <img src="/styles/img/header1.svg" alt="" id="header_fragment">
+    <div class="header-body">
+        <div class="row">
+            <div class="page-name">
+                <div class="small"><a href="/">ფასთა გამოკითხვა</a></div>
+                <div class="big">კომპანიის ინფორმაცია</div>
+            </div>
+            <div id="logo">
+                <a href="/"><img src="/styles/img/logo.svg" alt=""></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <nav class="company-subnav">
+        <a th:href="@{/user/change_password}">🔒 პაროლის ცვლილება</a>
+        <div class="divider"></div>
+        <a th:href="@{/company/view_company_users}" class="active">👤 მომხმარებლები</a>
+        <div class="divider"></div>
+        <a th:href="@{/company/view_company}">ℹ კომპანიის ინფორმაცია</a>
+        <div class="divider"></div>
+        <a th:href="@{/company/view_company_files}">📄 კომპანიის ფაილები</a>
+    </nav>
+
+    <div class="reg-header">
+        <div class="heading bold">მომხმარებლის ინფორმაცია</div>
+    </div>
+
+    <div class="reg-body-1">
+        <div class="form-card">
+            <div class="form-title">👤 მომხმარებლის დეტალები</div>
+
+            <div id="errorExsist" class="error-msg">ასეთი მომხმარებელი უკვე არსებობს!</div>
+            <input type="hidden" id="exError" th:value="${user.id}"/>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>სახელი</label>
+                    <input type="text" name="firstName" th:value="${user.firstName}"
+                           placeholder="შეიყვანეთ სახელი" readonly>
+                </div>
+                <div class="form-group">
+                    <label>გვარი</label>
+                    <input type="text" name="lastName" th:value="${user.lastName}"
+                           placeholder="შეიყვანეთ გვარი" readonly>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>მომხმარებლის სახელი (მეილი)</label>
+                    <input type="text" name="userName" th:value="${user.email}"
+                           placeholder="შეიყვანეთ მომხმარებლის სახელი" readonly>
+                </div>
+                <div class="form-group">
+                    <label>საკონტაქტო მეილი</label>
+                    <input type="email" name="contactEmail" th:value="${user.contactEmail}"
+                           placeholder="შეიყვანეთ საკონტაქტო მეილი" readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>პოზიცია</label>
+                <input type="text" name="contactPosition" th:value="${user.contactPosition}"
+                       placeholder="შეიყვანეთ პოზიციის დასახელება" readonly>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>ტელეფონი</label>
+                    <input type="text" name="contactPhone" th:value="${user.contactPhone}"
+                           placeholder="შეიყვანეთ ტელეფონის ნომერი" readonly>
+                </div>
+                <div class="form-group">
+                    <label>მობილური</label>
+                    <input type="text" name="contactMobile" th:value="${user.contactMobile}"
+                           placeholder="შეიყვანეთ მობილურის ნომერი" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="copyright bold">© ენერგო-პრო საქართველო.</div>
+    <img src="/styles/img/footer1.svg" alt="" id="footer_fragment">
+    <a href="/"><img id="footer-logo" src="/styles/img/footer-logo.svg"></a>
+</footer>
+
+<script src="/styles/js/jquery-2.1.1.js"></script>
+<script src="/styles/js/main.js"></script>
+</body>
+</html>

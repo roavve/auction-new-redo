@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <title>Energo-Pro</title>
+    <link rel="stylesheet" href="/styles/css/style.css">
+    <style>
+        .company-subnav {
+            display: flex;
+            gap: 0;
+            margin: 24px 32px;
+            border-bottom: 2px solid #e0eef5;
+            flex-wrap: wrap;
+        }
+        .company-subnav a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #444;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: color 0.15s, border-color 0.15s;
+        }
+        .company-subnav a:hover,
+        .company-subnav a.active {
+            color: #008DD0;
+            border-bottom-color: #008DD0;
+        }
+        .company-subnav .divider {
+            width: 1px;
+            background: #e0eef5;
+            margin: 6px 0;
+        }
+        .form-card {
+            background: #fff;
+            border: 1px solid #d0e6f3;
+            border-radius: 8px;
+            padding: 32px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .form-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e0eef5;
+        }
+        .form-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .form-row .form-group { flex: 1; min-width: 200px; }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #444;
+            margin-bottom: 6px;
+        }
+        .form-group input {
+            width: 100%;
+            font-size: 0.9rem;
+            color: #3E3E3E;
+            padding: 9px 12px;
+            border-radius: 8px;
+            border: 1px solid #C8C8C8;
+            box-sizing: border-box;
+            background: #f8f8f8;
+        }
+        .section-divider {
+            border: none;
+            border-top: 1px solid #e0eef5;
+            margin: 12px 0 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="~{fragments :: navbar}"></div>
+
+<header>
+    <img src="/styles/img/header1.svg" alt="" id="header_fragment">
+    <div class="header-body">
+        <div class="row">
+            <div class="page-name">
+                <div class="small"><a href="/">ფასთა გამოკითხვა</a></div>
+                <div class="big">კომპანიის ინფორმაცია</div>
+            </div>
+            <div id="logo">
+                <a href="/"><img src="/styles/img/logo.svg" alt=""></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <nav class="company-subnav">
+        <a th:href="@{/user/change_password}">🔒 პაროლის ცვლილება</a>
+        <div class="divider"></div>
+        <a th:href="@{/company/view_company_users}">👤 მომხმარებლები</a>
+        <div class="divider"></div>
+        <a th:href="@{/company/view_company}" class="active">ℹ კომპანიის ინფორმაცია</a>
+        <div class="divider"></div>
+        <a th:href="@{/company/view_company_files}">📄 კომპანიის ფაილები</a>
+    </nav>
+
+    <div class="reg-header">
+        <div class="heading bold">კომპანიის ინფორმაცია</div>
+    </div>
+
+    <div class="reg-body-1">
+        <div class="form-card">
+            <div class="form-title">ℹ კომპანიის დეტალები</div>
+
+            <input type="hidden" name="id" th:value="${company.id}"/>
+
+            <div class="form-group">
+                <label>კომპანიის დასახელება</label>
+                <input type="text" th:value="${company.companyName}" readonly>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>კომპანიის ტიპი</label>
+                    <input type="text" th:value="${company.type?.name}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>კატეგორია</label>
+                    <input type="text"
+                           th:value="${company.category != null and !company.category.disabled} ? ${company.category.name} : ''"
+                           readonly>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>taxID</label>
+                    <input type="text" th:value="${company.taxId}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>აღწერა</label>
+                    <input type="text" th:value="${company.businessDesc}" readonly>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>ფიზიკური მისამართი</label>
+                    <input type="text" th:value="${company.phisAddress}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>იურიდიული მისამართი</label>
+                    <input type="text" th:value="${company.legalAddress}" readonly>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>საკონტაქო იმეილი</label>
+                    <input type="text" th:value="${company.contactEmail}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>საკონტაქტო ტელეფონი</label>
+                    <input type="text" th:value="${company.contactPhone}" readonly>
+                </div>
+            </div>
+
+            <hr class="section-divider">
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>საბანკო კოდი</label>
+                    <input type="text" th:value="${company.bankCode1}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>საბანკო ანგარიში</label>
+                    <input type="text" th:value="${company.bankAccount1}" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="copyright bold">© ენერგო-პრო საქართველო.</div>
+    <img src="/styles/img/footer1.svg" alt="" id="footer_fragment">
+    <a href="/"><img id="footer-logo" src="/styles/img/footer-logo.svg"></a>
+</footer>
+
+<script src="/styles/js/jquery-2.1.1.js"></script>
+<script src="/styles/js/main.js"></script>
+</body>
+</html>

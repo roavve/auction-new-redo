@@ -39,7 +39,7 @@ public class AuctionComment {
     @JoinColumn(name = "STATUS_KEY")
     private DictionaryItem status;
 
-    @Column(name = "ANSWER_TO_KEY")
+    @Column(name = "ANSWER_TOKEY")
     private String answerToKey;
 
     @Column(name = "CREATE_DATE")

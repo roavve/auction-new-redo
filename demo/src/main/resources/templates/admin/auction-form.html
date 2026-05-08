@@ -6,10 +6,17 @@
     <title>Admin - აუქციონის ფორმა</title>
     <link rel="stylesheet" href="/styles/css/style.css">
     <style>
-
-
-
-
+        .admin-bar {
+            background: #222;
+            color: #fff;
+            padding: 6px 24px;
+            font-size: 0.82rem;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        .admin-bar a { color: #7ecfff; text-decoration: none; }
+        .admin-bar a:hover { text-decoration: underline; }
         .form-card {
             background: #fff;
             border: 1px solid #d0e6f3;
@@ -17,10 +24,7 @@
             padding: 32px;
             max-width: 700px;
         }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
+        .form-group { margin-bottom: 20px; }
         .form-group label {
             display: block;
             font-weight: 600;
@@ -46,21 +50,9 @@
             border-color: #008DD0;
             box-shadow: 0 0 0 2px rgba(0,141,208,0.15);
         }
-        .form-group textarea {
-            resize: vertical;
-            min-height: 90px;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-        .form-row .form-group {
-            flex: 1;
-            min-width: 180px;
-        }
-
+        .form-group textarea { resize: vertical; min-height: 90px; }
+        .form-row { display: flex; gap: 16px; flex-wrap: wrap; }
+        .form-row .form-group { flex: 1; min-width: 180px; }
         .form-actions {
             display: flex;
             gap: 12px;
@@ -78,14 +70,8 @@
             cursor: pointer;
         }
         .btn-submit:hover { background: #006fa0; }
-        .btn-cancel {
-            color: #555;
-            text-decoration: none;
-            font-size: 0.9rem;
-            padding: 10px 16px;
-        }
+        .btn-cancel { color: #555; text-decoration: none; font-size: 0.9rem; padding: 10px 16px; }
         .btn-cancel:hover { color: #000; }
-
         .form-title {
             font-size: 1.1rem;
             font-weight: 700;
@@ -94,28 +80,7 @@
             padding-bottom: 12px;
             border-bottom: 2px solid #e0eef5;
         }
-
-        .hint {
-            font-size: 0.75rem;
-            color: #888;
-            margin-top: 4px;
-        }
-
-        .site-nav {
-            background: #0057a8; padding: 0 32px; display: flex;
-            align-items: center; height: 48px; position: sticky;
-            top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.18);
-        }
-        .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
-        .nav-left { display: flex; align-items: center; gap: 32px; }
-        .nav-logo img { height: 26px; filter: brightness(0) invert(1); display: block; }
-        .nav-links { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px; }
-        .nav-links li a { color: rgba(255,255,255,0.88) !important; text-decoration: none !important;
-            font-size: 0.84rem; font-weight: 600; padding: 6px 14px; border-radius: 4px; transition: background 0.15s; }
-        .nav-links li a:hover { background: rgba(255,255,255,0.18); color: #fff !important; }
-        .nav-right { display: flex; align-items: center; }
-        .nav-user { color: rgba(255,255,255,0.65); font-size: 0.82rem; }
-
+        .hint { font-size: 0.75rem; color: #888; margin-top: 4px; }
     </style>
 </head>
 <body>

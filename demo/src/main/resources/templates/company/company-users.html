@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <title>Energo-Pro</title>
+    <link rel="stylesheet" href="/styles/css/style.css">
+    <style>
+        .company-subnav {
+            display: flex;
+            gap: 0;
+            margin: 24px 32px;
+            border-bottom: 2px solid #e0eef5;
+            flex-wrap: wrap;
+        }
+        .company-subnav a, .company-subnav span.inactive-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #444;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: color 0.15s, border-color 0.15s;
+        }
+        .company-subnav a:hover,
+        .company-subnav a.active {
+            color: #008DD0;
+            border-bottom-color: #008DD0;
+        }
+        .company-subnav .divider {
+            width: 1px;
+            background: #e0eef5;
+            margin: 6px 0;
+        }
+        .users-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            overflow-x: auto;
+            display: block;
+        }
+        .users-table thead tr { background: #008DD0; color: #fff; }
+        .users-table th { padding: 10px 14px; text-align: left; font-weight: 600; white-space: nowrap; }
+        .users-table tbody tr { border-bottom: 1px solid #e0eef5; }
+        .users-table tbody tr:hover { background: #f0f8ff; }
+        .users-table td { padding: 10px 14px; vertical-align: middle; white-space: nowrap; }
+        .status-active { color: green; font-weight: bold; }
+        .status-inactive { color: red; font-weight: bold; }
+        .btn-view {
+            background: #008DD0; color: #fff; border: none;
+            padding: 5px 14px; border-radius: 4px; font-size: 0.78rem;
+            font-weight: 600; cursor: pointer; text-decoration: none;
+        }
+        .btn-view:hover { background: #006fa0; }
+        .empty-state {
+            text-align: center; padding: 32px; color: #999; font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="~{fragments :: navbar}"></div>
+
+<header>
+    <img src="/styles/img/header1.svg" alt="" id="header_fragment">
+    <div class="header-body">
+        <div class="row">
+            <div class="page-name">
+                <div class="small"><a href="/">ფასთა გამოკითხვა</a></div>
+                <div class="big">კომპანიის ინფორმაცია</div>
+            </div>
+            <div id="logo">
+                <a href="/"><img src="/styles/img/logo.svg" alt=""></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <nav class="company-subnav">
+        <a th:href="@{/user/change_password}">🔒 პაროლის ცვლილება</a>
+        <div class="divider"></div>
+        <a th:href="@{/company/view_company_users}" class="active">👤 მომხმარებლები</a>
+        <div class="divider"></div>
+        <a th:href="@{/company/view_company}">ℹ კომპანიის ინფორმაცია</a>
+        <div class="divider"></div>
+        <a th:href="@{/company/view_company_files}">📄 კომპანიის ფაილები</a>
+    </nav>
+
+    <div class="reg-header">
+        <div class="heading bold">კომპანიის მომხმარებლები</div>
+    </div>
+
+    <div class="reg-body-1">
+        <div th:if="${companyUsers != null and !companyUsers.isEmpty()}">
+            <table class="users-table">
+                <thead>
+                <tr>
+                    <th>სახელი</th>
+                    <th>გვარი</th>
+                    <th>მომხმარებლის სახელი</th>
+                    <th>თანამდებობა</th>
+                    <th>მობილური</th>
+                    <th>სტატუსი</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ch : ${companyUsers}">
+                    <td th:text="${ch.firstName}">-</td>
+                    <td th:text="${ch.lastName}">-</td>
+                    <td th:text="${ch.email}">-</td>
+                    <td th:text="${ch.contactPosition}">-</td>
+                    <td th:text="${ch.contactMobile}">-</td>
+                    <td>
+                        <span th:if="${ch.status == 1}" class="status-active">✔</span>
+                        <span th:if="${ch.status == 0}" class="status-inactive">✖</span>
+                    </td>
+                    <td>
+                        <a th:href="@{/company/edit_compUser_form(id=${ch.id})}" class="btn-view">ნახვა</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${companyUsers == null or companyUsers.isEmpty()}" class="empty-state">
+            მომხმარებლები არ მოიძებნა.
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="copyright bold">© ენერგო-პრო საქართველო.</div>
+    <img src="/styles/img/footer1.svg" alt="" id="footer_fragment">
+    <a href="/"><img id="footer-logo" src="/styles/img/footer-logo.svg"></a>
+</footer>
+
+<script src="/styles/js/jquery-2.1.1.js"></script>
+<script src="/styles/js/main.js"></script>
+</body>
+</html>
